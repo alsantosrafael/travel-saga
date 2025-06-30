@@ -1,7 +1,7 @@
 package com.travel.orchestrator.domain.enums
 
 enum class SagaState {
-    START,
+    STARTED,
     FLIGHT_PENDING,
     COMPLETED
 }
