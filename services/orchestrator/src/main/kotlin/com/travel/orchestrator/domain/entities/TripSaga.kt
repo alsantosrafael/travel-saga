@@ -1,23 +1,45 @@
 package com.travel.orchestrator.domain.entities
 
 import com.travel.orchestrator.domain.enums.SagaState
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.Table
+import org.hibernate.annotations.CreationTimestamp
+import org.hibernate.annotations.UpdateTimestamp
 import java.time.LocalDateTime
 
-data class TripSaga(
-    val id: Long,
-    val sagaId: String,
-    val userId: String,
-    val flightDetails: String,
-    val flightReservationId: String? = null,
-    val currentState: SagaState,
-    val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime
-) {
-    fun updateStatus( newStatus: SagaState, reservationId: String?): TripSaga {
-        return copy(
-            currentState = newStatus,
-            flightReservationId = reservationId ?: this.flightReservationId,
-            updatedAt = LocalDateTime.now()
-        )
-    }
-}
+@Entity
+@Table(name = "TRIP_SAGA")
+class TripSaga(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null,
+
+    @Column(nullable = false, unique = true)
+    var sagaId: String = "",
+
+    @Column(nullable = false)
+    var userId: String = "",
+
+    @Column(nullable = false)
+    var flightDetails: String = "",
+
+    @Column(nullable = true)
+    var flightReservationId: String? = null,
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    var currentState: SagaState = SagaState.STARTED,
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    var createdAt: LocalDateTime? = null,
+
+    @UpdateTimestamp
+    var updatedAt: LocalDateTime? = null
+)
