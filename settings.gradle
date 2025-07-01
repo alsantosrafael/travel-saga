@@ -1,3 +1,5 @@
 rootProject.name = 'travel-saga'
 
 include("services:orchestrator")
+
+include ("services:flight-booking")
