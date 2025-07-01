@@ -6,7 +6,8 @@ data class TripRequest(
     )
 {
     init {
-        require(userId.isNotBlank()) { "User ID is required"}
+        require(userId.isNotBlank()) { "UserID is required"}
         require(flightDetails.isNotBlank()) { "Flight details must be provided"}
+        require(userId.length <= 100) { "UserID is too long"}
     }
 }

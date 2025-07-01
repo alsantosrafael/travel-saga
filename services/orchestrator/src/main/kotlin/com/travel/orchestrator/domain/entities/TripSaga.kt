@@ -13,12 +13,11 @@ data class TripSaga(
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime
 ) {
-
     fun updateStatus( newStatus: SagaState, reservationId: String?): TripSaga {
         return copy(
             currentState = newStatus,
-            flightReservationId = reservationId ?: this.flightReservationId
+            flightReservationId = reservationId ?: this.flightReservationId,
+            updatedAt = LocalDateTime.now()
         )
     }
-
 }
