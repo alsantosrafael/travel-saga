@@ -61,15 +61,13 @@ services:
       context: ./services/flight-booking
     container_name: flight-booking
     ports:
-      - "8090:8080"
+      - "8090:8090"
     environment:
       - SPRING_PROFILES_ACTIVE=default
     networks:
       - internal-net
     depends_on:
-      - zookeeper
-      - kafka
-      - schema-registry
+      - orchestrator
 
 networks:
   internal-net:

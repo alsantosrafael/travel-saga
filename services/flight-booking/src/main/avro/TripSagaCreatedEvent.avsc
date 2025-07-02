@@ -1,0 +1,10 @@
+{
+  "type": "record",
+  "name": "TripSagaCreatedEvent",
+  "namespace": "com.travel.orchestrator.avro",
+  "fields": [
+    {"name": "sagaId", "type": "string"},
+    {"name": "userId", "type": "string"},
+    {"name": "flightDetails", "type": "string"}
+  ]
+}
