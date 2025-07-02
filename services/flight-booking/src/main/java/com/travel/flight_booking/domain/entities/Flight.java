@@ -63,4 +63,48 @@ public class Flight {
 		this.reservations.remove(reservation);
 		reservation.setFlight(null);
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getFlightCode() {
+		return flightCode;
+	}
+
+	public Airport getOrigin() {
+		return origin;
+	}
+
+	public Airport getDestination() {
+		return destination;
+	}
+
+	public int getCapacity() {
+		return capacity;
+	}
+
+	public LocalDateTime getDepartureTime() {
+		return departureTime;
+	}
+
+	public LocalDateTime getArrivalTime() {
+		return arrivalTime;
+	}
+
+	public FlightStatus getFlightStatus() {
+		return flightStatus;
+	}
+
+	public Set<Reservation> getReservations() {
+		return reservations;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
 }
