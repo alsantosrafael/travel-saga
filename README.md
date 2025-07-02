@@ -1,7 +1,7 @@
 ## Travel Saga Orchestrated Project
 
 ### Intro
-Welcome! In this project I am build a travel management system employing the Saga Orchestrated Architectural Pattern.
+Welcome! In this project I am building a travel management system employing the Saga Orchestrated Architectural Pattern.
  
 ### Architecture
 This project consists of a collection of distributed systems that communicate either through kafka messaging or HTTP Rest requests with each other. 
