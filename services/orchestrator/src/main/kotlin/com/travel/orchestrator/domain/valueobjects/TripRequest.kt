@@ -4,7 +4,7 @@ data class TripRequest(
     val userId: String,
     val document: String,
     val email: String,
-    val flightDetails: String? = null,
+    val flightInfo: FlightInfo? = null,
     val carDetails: String? = null,
     val hotelDetails: String? = null,
     )

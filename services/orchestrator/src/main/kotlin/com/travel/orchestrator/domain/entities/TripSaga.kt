@@ -1,7 +1,11 @@
 package com.travel.orchestrator.domain.entities
 
 import com.travel.orchestrator.domain.enums.SagaState
+import com.travel.orchestrator.domain.valueobjects.FlightInfo
+import jakarta.persistence.AttributeOverride
+import jakarta.persistence.AttributeOverrides
 import jakarta.persistence.Column
+import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
@@ -32,8 +36,14 @@ class TripSaga(
     @Column(nullable = false)
     var email: String = "",
 
-    @Column(nullable = true)
-    var flightDetails: String? = null,
+    @Embedded
+    @AttributeOverrides(
+        AttributeOverride(name = "flightCode", column = Column(name = "flightCode")),
+        AttributeOverride(name = "originCode", column = Column(name = "originCode")),
+        AttributeOverride(name = "destinationCode", column = Column(name = "destinationCode")),
+        AttributeOverride(name = "seatNumber", column = Column(name = "seatNumber"))
+    )
+    var flightInfo: FlightInfo? = null,
 
     @Column(nullable = true)
     var carDetails: String? = null,

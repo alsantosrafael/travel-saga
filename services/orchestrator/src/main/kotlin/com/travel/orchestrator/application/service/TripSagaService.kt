@@ -14,6 +14,7 @@ class TripSagaService (
 ) {
 
     fun create(request: TripRequest): TripCreatedResponse {
+        // realizar envios de tópicos flight-booking, hotel-booking, car-rental
         return startTrip.execute(request);
     }
 
@@ -25,7 +26,7 @@ class TripSagaService (
             userId = tripSaga.userId,
             email = tripSaga.email,
             document = tripSaga.document,
-            flightDetails = tripSaga.flightDetails,
+            flightInfo = tripSaga.flightInfo,
             hotelDetails = tripSaga.hotelDetails,
             carDetails = tripSaga.carDetails,
             flightReservationId = tripSaga.flightReservationId,

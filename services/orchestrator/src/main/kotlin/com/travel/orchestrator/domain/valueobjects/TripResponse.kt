@@ -8,7 +8,7 @@ data class TripResponse(
     val userId: String,
     val document: String,
     val email: String,
-    val flightDetails: String? = null,
+    val flightInfo: FlightInfo? = null,
     val hotelDetails: String? = null,
     val carDetails: String? = null,
     val flightReservationId: String? = null,
