@@ -10,7 +10,7 @@ The services part of this system are: **orchestrator**, **flight-booking**, **ho
 
 
 ### Technologies
-    - Kotlin 1.9.25
+    - Kotlin (JVM 2.2.0)
     - Java 21
     - Spring Boot 3.5.3
     - Apache Kafka
