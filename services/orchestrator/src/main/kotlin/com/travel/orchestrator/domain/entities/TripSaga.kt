@@ -27,10 +27,28 @@ class TripSaga(
     var userId: String = "",
 
     @Column(nullable = false)
-    var flightDetails: String = "",
+    var document: String = "",
+
+    @Column(nullable = false)
+    var email: String = "",
+
+    @Column(nullable = true)
+    var flightDetails: String? = null,
+
+    @Column(nullable = true)
+    var carDetails: String? = null,
+
+    @Column(nullable = true)
+    var hotelDetails: String? = null,
 
     @Column(nullable = true)
     var flightReservationId: String? = null,
+
+    @Column(nullable = true)
+    var carReservationId: String? = null,
+
+    @Column(nullable = true)
+    var hotelReservationId: String? = null,
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

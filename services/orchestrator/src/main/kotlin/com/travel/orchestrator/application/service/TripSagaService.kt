@@ -20,11 +20,17 @@ class TripSagaService (
     fun fetch(): List<TripResponse> =
      repository.findAll().map { tripSaga ->
         TripResponse(
-            id = tripSaga.id ?: 0L,
+            id = tripSaga.id,
             sagaId = tripSaga.sagaId,
             userId = tripSaga.userId,
+            email = tripSaga.email,
+            document = tripSaga.document,
             flightDetails = tripSaga.flightDetails,
+            hotelDetails = tripSaga.hotelDetails,
+            carDetails = tripSaga.carDetails,
             flightReservationId = tripSaga.flightReservationId,
+            hotelReservationId = tripSaga.hotelReservationId,
+            carReservationId = tripSaga.carReservationId,
             currentState = tripSaga.currentState
         )
     }

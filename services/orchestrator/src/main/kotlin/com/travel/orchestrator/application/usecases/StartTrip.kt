@@ -19,12 +19,27 @@ class StartTrip (
             null,
             UUID.randomUUID().toString(),
             request.userId,
+            request.document,
+            request.email,
             request.flightDetails,
+            request.carDetails,
+            request.hotelDetails
         )
-        val savedTrip = repository.save(
-            trip
-        );
-        kafkaProducer.send(savedTrip.sagaId, savedTrip.userId, savedTrip.flightDetails)
-        return TripCreatedResponse(savedTrip.id ?: 0L, savedTrip.sagaId, savedTrip.userId, savedTrip.flightDetails, savedTrip.flightReservationId, savedTrip.currentState)
+        val tripSaga = repository.save(trip);
+        kafkaProducer.send(tripSaga)
+        return TripCreatedResponse(
+            tripSaga.id,
+            tripSaga.sagaId,
+            tripSaga.userId,
+            tripSaga.document,
+            tripSaga.email,
+            tripSaga.flightDetails,
+            tripSaga.flightReservationId,
+            tripSaga.hotelDetails,
+            tripSaga.hotelReservationId,
+            tripSaga.carDetails,
+            tripSaga.carReservationId,
+            tripSaga.currentState,
+        )
     }
 }

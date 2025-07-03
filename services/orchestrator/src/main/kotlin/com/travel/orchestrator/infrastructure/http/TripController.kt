@@ -20,7 +20,7 @@ class TripController(
 
     @PostMapping
     fun createTrip(@RequestBody request: TripRequest): ResponseEntity<TripCreatedResponse> {
-        return ResponseEntity.created(URI.create("/trips/${0L}")).body(service.create(request))
+        return ResponseEntity.created(URI.create("/trips")).body(service.create(request))
     }
 
     @GetMapping

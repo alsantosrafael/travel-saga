@@ -5,6 +5,10 @@
   "fields": [
     {"name": "sagaId", "type": "string"},
     {"name": "userId", "type": "string"},
-    {"name": "flightDetails", "type": "string"}
+    {"name": "email", "type": "string"},
+    {"name": "document", "type": "string"},
+    {"name": "flightDetails", "type": ["null", "string"], "default": null},
+    {"name": "hotelDetails", "type": ["null", "string"], "default": null},
+    {"name": "carDetails", "type": ["null", "string"], "default": null}
   ]
 }
