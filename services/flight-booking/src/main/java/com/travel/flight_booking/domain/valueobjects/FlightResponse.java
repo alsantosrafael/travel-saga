@@ -6,7 +6,6 @@ import com.travel.flight_booking.domain.entities.Reservation;
 import com.travel.flight_booking.domain.enums.FlightStatus;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 
 public record FlightResponse (

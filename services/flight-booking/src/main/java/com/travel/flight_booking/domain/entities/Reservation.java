@@ -31,7 +31,6 @@ public class Reservation {
 	@Column
 	private String seatNumber;
 
-
 	public void setFlight(Flight flight) {
 		this.flight = flight;
 	}
