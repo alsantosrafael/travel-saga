@@ -22,15 +22,15 @@ public class Flight {
 	private String flightCode;
 
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
-	@JoinColumn(nullable = false, name="origin_id")
+	@JoinColumn(nullable = false, name="origin_code")
 	private Airport origin;
 
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
-	@JoinColumn(nullable = false, name="destination_id")
+	@JoinColumn(nullable = false, name="destination_code")
 	private Airport destination;
 
 	@Column(nullable = false)
-	private int capacity;
+	private Integer capacity;
 
 	@Column(nullable = false)
 	private LocalDateTime departureTime;
@@ -80,7 +80,7 @@ public class Flight {
 		return destination;
 	}
 
-	public int getCapacity() {
+	public Integer getCapacity() {
 		return capacity;
 	}
 

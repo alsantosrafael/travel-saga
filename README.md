@@ -19,6 +19,9 @@ The services part of this system are: **orchestrator**, **flight-booking**, **ho
     - Docker-Compose
 
 ### How to Run
+
+Go to https://airportdb.io and create an account. Create an API token so you can run calls to the DB.
+Once the token is created, update `airport.db.api.token=` inside `flight-booking` project with your token
 Run the following command on the root folder to build the applications
 ```shell
 ./gradlew clean generateAvroJava build -x test

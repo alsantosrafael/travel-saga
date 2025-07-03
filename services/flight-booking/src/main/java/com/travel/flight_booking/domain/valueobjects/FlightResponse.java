@@ -13,7 +13,7 @@ public record FlightResponse (
 	String flightCode,
 	Airport origin,
 	Airport destination,
-	int capacity,
+	Integer capacity,
 	LocalDateTime departureTime,
 	LocalDateTime arrivalTime,
 	FlightStatus flightStatus,
