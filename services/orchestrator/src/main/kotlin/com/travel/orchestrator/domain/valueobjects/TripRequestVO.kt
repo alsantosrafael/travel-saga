@@ -1,6 +1,6 @@
 package com.travel.orchestrator.domain.valueobjects
 
-data class TripRequest(
+data class TripRequestVO(
     val userId: String,
     val document: String,
     val email: String,

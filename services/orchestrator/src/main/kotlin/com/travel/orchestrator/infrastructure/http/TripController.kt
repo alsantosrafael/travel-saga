@@ -2,7 +2,7 @@ package com.travel.orchestrator.infrastructure.http
 
 import com.travel.orchestrator.application.service.TripSagaService
 import com.travel.orchestrator.domain.valueobjects.TripCreatedResponse
-import com.travel.orchestrator.domain.valueobjects.TripRequest
+import com.travel.orchestrator.domain.valueobjects.TripRequestVO
 import com.travel.orchestrator.domain.valueobjects.TripResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -19,7 +19,7 @@ class TripController(
 ) {
 
     @PostMapping
-    fun createTrip(@RequestBody request: TripRequest): ResponseEntity<TripCreatedResponse> {
+    fun createTrip(@RequestBody request: TripRequestVO): ResponseEntity<TripCreatedResponse> {
         return ResponseEntity.created(URI.create("/trips")).body(service.create(request))
     }
 

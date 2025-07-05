@@ -1,10 +1,10 @@
 package com.travel.orchestrator.domain.valueobjects
 
 import com.travel.orchestrator.domain.enums.SagaState
+import java.util.UUID
 
 data class TripResponse(
-    val id: Long?,
-    val sagaId: String,
+    val id: UUID?,
     val userId: String,
     val document: String,
     val email: String,
