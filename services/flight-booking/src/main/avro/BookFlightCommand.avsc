@@ -1,0 +1,25 @@
+[
+  {
+    "type": "record",
+    "name": "FlightDetails",
+    "namespace": "com.travel.flight_booking.avro",
+    "fields": [
+      {"name":  "flightCode", "type": "string"},
+      {"name": "originCode", "type": "string"},
+      {"name": "destinationCode", "type": "string"},
+      {"name":  "seatNumber", "type":  "string"}
+    ]
+  },
+  {
+    "type": "record",
+    "name": "BookFlightCommand",
+    "namespace": "com.travel.flight_booking.avro",
+    "fields": [
+      {"name": "sagaId", "type": "string"},
+      {"name": "userId", "type": "string"},
+      {"name": "email", "type": "string"},
+      {"name": "document", "type": "string"},
+      {"name": "flightDetails", "type": "com.travel.flight_booking.avro.FlightDetails"}
+    ]
+  }
+]

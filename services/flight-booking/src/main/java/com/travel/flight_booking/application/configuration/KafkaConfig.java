@@ -1,6 +1,7 @@
 package com.travel.flight_booking.application.configuration;
 
-import com.travel.orchestrator.avro.TripSagaCreatedEvent;
+import com.travel.flight_booking.avro.BookFlightCommand;
+import com.travel.flight_booking.avro.FlightBookedResponse;
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -29,7 +30,7 @@ public class KafkaConfig {
 	private String schemaRegistryUrl;
 
 	@Bean
-	public ConsumerFactory<String, TripSagaCreatedEvent> consumerFactory() {
+	public ConsumerFactory<String, BookFlightCommand> bookFlightCommandConsumerFactory() {
 		Map<String, Object> props = new HashMap<>();
 		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootStrapServers);
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
@@ -42,9 +43,30 @@ public class KafkaConfig {
 	}
 
 	@Bean
-	public ConcurrentKafkaListenerContainerFactory<String, TripSagaCreatedEvent> kafkaListenerContainerFactory() {
-		ConcurrentKafkaListenerContainerFactory<String, TripSagaCreatedEvent> factory = new ConcurrentKafkaListenerContainerFactory<>();
-		factory.setConsumerFactory(consumerFactory());
+	public ConsumerFactory<String, FlightBookedResponse> flightBookedResponseConsumerFactory() {
+		Map<String, Object> props = new HashMap<>();
+		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootStrapServers);
+		props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
+		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaAvroDeserializer.class);
+		props.put("schema.registry.url", schemaRegistryUrl);
+		props.put("specific.avro.reader", true);
+		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
+		return new DefaultKafkaConsumerFactory<>(props);
+	}
+
+	@Bean
+	public ConcurrentKafkaListenerContainerFactory<String, BookFlightCommand> kafkaListenerContainerFactory() {
+		ConcurrentKafkaListenerContainerFactory<String, BookFlightCommand> factory = new ConcurrentKafkaListenerContainerFactory<>();
+		factory.setConsumerFactory(bookFlightCommandConsumerFactory());
+		factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL);
+		return factory;
+	}
+
+	@Bean
+	public ConcurrentKafkaListenerContainerFactory<String, FlightBookedResponse> kafkaListenerBookedFlightResponse() {
+		ConcurrentKafkaListenerContainerFactory<String, FlightBookedResponse> factory = new ConcurrentKafkaListenerContainerFactory<>();
+		factory.setConsumerFactory(flightBookedResponseConsumerFactory());
 		factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL);
 		return factory;
 	}

@@ -1,0 +1,21 @@
+package com.travel.flight_booking.domain.mappers;
+
+import com.travel.flight_booking.avro.BookFlightCommand;
+import com.travel.flight_booking.avro.FlightBookedResponse;
+import com.travel.flight_booking.domain.entities.Reservation;
+import com.travel.flight_booking.domain.enums.StepStatus;
+import org.springframework.stereotype.Component;
+
+@Component
+public class FlightBookedResponseMapper {
+
+	public FlightBookedResponse toOrchestratorEventSuccess(BookFlightCommand event, Reservation reservation) {
+		return FlightBookedResponse.newBuilder()
+			.setUserId(String.valueOf(reservation.getId()))
+			.setSagaId(event.getSagaId())
+			.setFlightReservationId(reservation.getId().toString())
+			.setStatus(String.valueOf(StepStatus.DONE))
+			.setMessage("Flight booked successfully")
+			.build();
+	}
+}

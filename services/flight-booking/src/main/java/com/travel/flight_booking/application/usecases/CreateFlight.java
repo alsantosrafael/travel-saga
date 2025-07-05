@@ -1,7 +1,6 @@
 package com.travel.flight_booking.application.usecases;
 
 import com.travel.flight_booking.domain.valueobjects.CreateFlightRequest;
-import com.travel.flight_booking.infrastructure.kafka.consumers.TripSagaKafkaConsumer;
 import com.travel.flight_booking.infrastructure.repositories.AirportRepository;
 import com.travel.flight_booking.infrastructure.repositories.FlightRepository;
 import org.slf4j.Logger;

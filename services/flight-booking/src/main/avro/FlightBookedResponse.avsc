@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "name": "FlightBookedResponse",
+  "namespace": "com.travel.flight_booking.avro",
+  "fields": [
+    {"name": "sagaId", "type": "string"},
+    {"name": "userId", "type": "string"},
+    {"name": "flightReservationId", "type": "string"},
+    {"name": "status", "type": "string"},
+    {"name": "message", "type": ["null", "string"], "default": null}
+  ]
+}
