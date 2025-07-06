@@ -5,8 +5,8 @@ data class TripRequestVO(
     val document: String,
     val email: String,
     val flightInfo: FlightInfo? = null,
-    val carDetails: String? = null,
-    val hotelDetails: String? = null,
+    val carInfo: String? = null,
+    val hotelInfo: String? = null,
     )
 {
     init {

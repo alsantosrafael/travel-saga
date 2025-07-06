@@ -1,6 +1,6 @@
 package com.travel.orchestrator.infrastructure.kafka.consumers
 
-import com.travel.orchestrator.avro.FlightBookedResponse
+import com.travel.flight_booking.avro.FlightBookedResponse
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.kafka.annotation.KafkaListener

@@ -1,6 +1,6 @@
 package com.travel.orchestrator.application.usecases
 
-import com.travel.orchestrator.avro.FlightBookedResponse
+import com.travel.flight_booking.avro.FlightBookedResponse
 import com.travel.orchestrator.domain.entities.TripSaga
 import com.travel.orchestrator.domain.enums.SagaStepType
 import com.travel.orchestrator.domain.enums.StepStatus

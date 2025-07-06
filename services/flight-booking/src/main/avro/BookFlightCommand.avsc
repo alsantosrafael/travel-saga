@@ -2,7 +2,7 @@
   {
     "type": "record",
     "name": "FlightDetails",
-    "namespace": "com.travel.flight_booking.avro",
+    "namespace": "com.travel.orchestrator.avro",
     "fields": [
       {"name":  "flightCode", "type": "string"},
       {"name": "originCode", "type": "string"},
@@ -13,13 +13,13 @@
   {
     "type": "record",
     "name": "BookFlightCommand",
-    "namespace": "com.travel.flight_booking.avro",
+    "namespace": "com.travel.orchestrator.avro",
     "fields": [
       {"name": "sagaId", "type": "string"},
       {"name": "userId", "type": "string"},
       {"name": "email", "type": "string"},
       {"name": "document", "type": "string"},
-      {"name": "flightDetails", "type": "com.travel.flight_booking.avro.FlightDetails"}
+      {"name": "flightDetails", "type": "com.travel.orchestrator.avro.FlightDetails"}
     ]
   }
 ]

@@ -6,7 +6,7 @@ import com.travel.flight_booking.domain.entities.Reservation;
 import com.travel.flight_booking.infrastructure.repositories.FlightRepository;
 import com.travel.flight_booking.infrastructure.repositories.PassengerRepository;
 import com.travel.flight_booking.infrastructure.repositories.ReservationRepository;
-import com.travel.flight_booking.avro.BookFlightCommand;
+import com.travel.orchestrator.avro.BookFlightCommand;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

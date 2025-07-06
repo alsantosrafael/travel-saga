@@ -1,6 +1,6 @@
 package com.travel.flight_booking.infrastructure.kafka.producers;
 
-import com.travel.flight_booking.avro.BookFlightCommand;
+import com.travel.orchestrator.avro.BookFlightCommand;
 import com.travel.flight_booking.avro.FlightBookedResponse;
 import com.travel.flight_booking.domain.mappers.FlightBookedResponseMapper;
 import com.travel.flight_booking.domain.entities.Reservation;
@@ -17,12 +17,23 @@ public class FlightBookedResponseProducer {
 	@Autowired
 	private KafkaTemplate<String, FlightBookedResponse> kafkaTemplate;
 	@Autowired
-	private static FlightBookedResponseMapper flightBookedResponseMapper;
+	private FlightBookedResponseMapper flightBookedResponseMapper;
 	private final String topic = "create-flight-response";
 
 	public void send(BookFlightCommand receivedEvent, Reservation reservation) {
-		FlightBookedResponse message = flightBookedResponseMapper.toOrchestratorEventSuccess(receivedEvent, reservation);
-		logger.info("Flight reservation DONE, sending response to orchestrator event={}", receivedEvent);
-		kafkaTemplate.send(topic, message.getSagaId(), message);
+		try {
+			FlightBookedResponse message = flightBookedResponseMapper.toOrchestratorEventSuccess(receivedEvent, reservation);
+			logger.info("Flight reservation DONE, sending response to orchestrator event={}", receivedEvent);
+			kafkaTemplate.send(topic, message.getSagaId(), message)
+				.whenComplete(
+					(result, ex) -> {
+						if (ex == null) { logger.info("Message sent successfully to topic {} with key {}", topic, message.getSagaId()); }
+						else { logger.error("Failed to send message to topic {} with key {}: {}", topic, message.getSagaId(), ex.getMessage());
+						}
+					});
+		} catch (Exception e) {
+			logger.error("Deu pau: {}", e.getMessage());
+			throw e;
+		}
 	}
 }

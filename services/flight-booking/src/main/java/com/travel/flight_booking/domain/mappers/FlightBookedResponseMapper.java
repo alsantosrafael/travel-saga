@@ -1,6 +1,6 @@
 package com.travel.flight_booking.domain.mappers;
 
-import com.travel.flight_booking.avro.BookFlightCommand;
+import com.travel.orchestrator.avro.BookFlightCommand;
 import com.travel.flight_booking.avro.FlightBookedResponse;
 import com.travel.flight_booking.domain.entities.Reservation;
 import com.travel.flight_booking.domain.enums.StepStatus;

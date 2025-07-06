@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "FlightBookedResponse",
-  "namespace": "com.travel.orchestrator.avro",
+  "namespace": "com.travel.flight_booking.avro",
   "fields": [
     {"name": "sagaId", "type": "string"},
     {"name": "userId", "type": "string"},

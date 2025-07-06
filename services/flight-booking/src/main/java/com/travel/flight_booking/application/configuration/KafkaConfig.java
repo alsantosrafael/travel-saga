@@ -1,6 +1,6 @@
 package com.travel.flight_booking.application.configuration;
 
-import com.travel.flight_booking.avro.BookFlightCommand;
+import com.travel.orchestrator.avro.BookFlightCommand;
 import com.travel.flight_booking.avro.FlightBookedResponse;
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -23,13 +23,12 @@ public class KafkaConfig {
 	@Value("${spring.kafka.bootstrap-servers}")
 	private String bootStrapServers;
 
-	@Value("${group.id}")
+	@Value("${kafka.consumer.group-id}")
 	private String groupId;
 
 	@Value("${spring.kafka.properties.schema.registry.url}")
 	private String schemaRegistryUrl;
 
-	@Bean
 	public ConsumerFactory<String, BookFlightCommand> bookFlightCommandConsumerFactory() {
 		Map<String, Object> props = new HashMap<>();
 		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootStrapServers);
@@ -42,7 +41,6 @@ public class KafkaConfig {
 		return new DefaultKafkaConsumerFactory<>(props);
 	}
 
-	@Bean
 	public ConsumerFactory<String, FlightBookedResponse> flightBookedResponseConsumerFactory() {
 		Map<String, Object> props = new HashMap<>();
 		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootStrapServers);
@@ -55,7 +53,7 @@ public class KafkaConfig {
 		return new DefaultKafkaConsumerFactory<>(props);
 	}
 
-	@Bean
+	@Bean(name = "kafkaListenerContainerFactory")
 	public ConcurrentKafkaListenerContainerFactory<String, BookFlightCommand> kafkaListenerContainerFactory() {
 		ConcurrentKafkaListenerContainerFactory<String, BookFlightCommand> factory = new ConcurrentKafkaListenerContainerFactory<>();
 		factory.setConsumerFactory(bookFlightCommandConsumerFactory());
@@ -63,7 +61,7 @@ public class KafkaConfig {
 		return factory;
 	}
 
-	@Bean
+	@Bean(name = "kafkaListenerBookedFlightResponse")
 	public ConcurrentKafkaListenerContainerFactory<String, FlightBookedResponse> kafkaListenerBookedFlightResponse() {
 		ConcurrentKafkaListenerContainerFactory<String, FlightBookedResponse> factory = new ConcurrentKafkaListenerContainerFactory<>();
 		factory.setConsumerFactory(flightBookedResponseConsumerFactory());
