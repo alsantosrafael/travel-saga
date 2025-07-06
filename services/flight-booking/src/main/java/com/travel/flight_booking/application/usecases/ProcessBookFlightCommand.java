@@ -48,7 +48,7 @@ public class ProcessBookFlightCommand {
 			flightCode,
 			originCode,
 			destinationCode
-		).orElseThrow(() -> new RuntimeException("Flight not found"));
+		).orElseThrow(() -> new RuntimeException("Flight " + flightCode + " not found"));
 	}
 
 	private Reservation makeReservation(Flight flight, BookFlightCommand event) {

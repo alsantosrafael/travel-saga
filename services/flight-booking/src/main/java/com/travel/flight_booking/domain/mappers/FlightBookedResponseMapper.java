@@ -9,13 +9,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class FlightBookedResponseMapper {
 
-	public FlightBookedResponse toOrchestratorEventSuccess(BookFlightCommand event, Reservation reservation) {
+	public FlightBookedResponse toOrchestratorEventResponse(BookFlightCommand event, Reservation reservation,
+															StepStatus status, String message) {
 		return FlightBookedResponse.newBuilder()
-			.setUserId(String.valueOf(reservation.getId()))
+			.setUserId(event.getUserId())
 			.setSagaId(event.getSagaId())
-			.setFlightReservationId(reservation.getId().toString())
-			.setStatus(String.valueOf(StepStatus.DONE))
-			.setMessage("Flight booked successfully")
+			.setFlightReservationId(reservation != null ? reservation.getId().toString() : "")
+			.setStatus(String.valueOf(status))
+			.setMessage(message)
 			.build();
 	}
 }

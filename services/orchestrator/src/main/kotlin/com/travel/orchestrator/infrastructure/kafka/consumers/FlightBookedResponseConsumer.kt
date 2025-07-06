@@ -5,7 +5,9 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.support.Acknowledgment
+import org.springframework.stereotype.Component
 
+@Component
 class FlightBookedResponseConsumer {
     val logger: Logger = LoggerFactory.getLogger(FlightBookedResponseConsumer::class.java)
 
@@ -15,7 +17,11 @@ class FlightBookedResponseConsumer {
         containerFactory = "kafkaListenerBookedFlightResponse"
     )
     fun consume(event: FlightBookedResponse, ack: Acknowledgment) {
-        logger.info("Received event: {}", event);
-        ack.acknowledge();
+        try {
+            logger.info("Received event: {}", event);
+            ack.acknowledge();
+        } catch (error: Exception) {
+            logger.error("Error consuming message e={}", error.localizedMessage)
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.travel.flight_booking.infrastructure.kafka.producers;
 
+import com.travel.flight_booking.domain.enums.StepStatus;
 import com.travel.orchestrator.avro.BookFlightCommand;
 import com.travel.flight_booking.avro.FlightBookedResponse;
 import com.travel.flight_booking.domain.mappers.FlightBookedResponseMapper;
@@ -20,10 +21,10 @@ public class FlightBookedResponseProducer {
 	private FlightBookedResponseMapper flightBookedResponseMapper;
 	private final String topic = "create-flight-response";
 
-	public void send(BookFlightCommand receivedEvent, Reservation reservation) {
+	public void send(BookFlightCommand receivedEvent, Reservation reservation, StepStatus status, String msg) {
 		try {
-			FlightBookedResponse message = flightBookedResponseMapper.toOrchestratorEventSuccess(receivedEvent, reservation);
-			logger.info("Flight reservation DONE, sending response to orchestrator event={}", receivedEvent);
+			FlightBookedResponse message = flightBookedResponseMapper.toOrchestratorEventResponse(receivedEvent, reservation, status, msg);
+			logger.info("Flight reservation with status={}, sending response to orchestrator event={}", status.toString(), receivedEvent);
 			kafkaTemplate.send(topic, message.getSagaId(), message)
 				.whenComplete(
 					(result, ex) -> {

@@ -1,6 +1,7 @@
 package com.travel.flight_booking.infrastructure.kafka.consumers;
 
 import com.travel.flight_booking.application.usecases.ProcessBookFlightCommand;
+import com.travel.flight_booking.domain.enums.StepStatus;
 import com.travel.orchestrator.avro.BookFlightCommand;
 import com.travel.flight_booking.domain.entities.Reservation;
 import com.travel.flight_booking.infrastructure.kafka.producers.FlightBookedResponseProducer;
@@ -28,10 +29,11 @@ public class BookFlightCommandConsumer {
 		try {
 			logger.info("Received event: {}", event);
 			Reservation reservation = processBookFlightCommand.execute(event);
-			flightBookedResponseProducer.send(event, reservation);
+			flightBookedResponseProducer.send(event, reservation, StepStatus.DONE, "Flight booked successfully");
 			ack.acknowledge();
 		} catch (Exception error) {
-			logger.error("Error while processing event: {}", event);
+			logger.error("Error while processing saga=#{}, e={}", event.getSagaId(), error.getLocalizedMessage());
+			flightBookedResponseProducer.send(event, null, StepStatus.ERROR, error.getLocalizedMessage());
 		}
 	}
 }
