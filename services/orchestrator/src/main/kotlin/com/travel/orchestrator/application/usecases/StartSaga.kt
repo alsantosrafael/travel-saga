@@ -1,10 +1,14 @@
 package com.travel.orchestrator.application.usecases
 
+import com.travel.orchestrator.domain.entities.SagaStepState
 import com.travel.orchestrator.domain.entities.TripRequest
 import com.travel.orchestrator.domain.entities.TripSaga
+import com.travel.orchestrator.domain.enums.SagaStepType
+import com.travel.orchestrator.domain.enums.StepStatus
 import com.travel.orchestrator.domain.valueobjects.TripCreatedResponse
 import com.travel.orchestrator.domain.valueobjects.TripRequestVO
 import com.travel.orchestrator.infrastructure.kafka.producers.BookFlightCommandProducer
+import com.travel.orchestrator.infrastructure.repository.SagaStepStateRepository
 import com.travel.orchestrator.infrastructure.repository.TripRequestRepository
 import com.travel.orchestrator.infrastructure.repository.TripSagaRepository
 import org.springframework.stereotype.Component
@@ -12,6 +16,7 @@ import org.springframework.stereotype.Component
 @Component("StartSaga")
 class StartSaga(
     private val tripSagaRepository: TripSagaRepository,
+    private val sagaStepStateRepository: SagaStepStateRepository,
     private val tripRequestRepository: TripRequestRepository,
     private val bookFlightCommandProducer: BookFlightCommandProducer
 ) {
@@ -24,7 +29,15 @@ class StartSaga(
         // TODO: create a list of all co-related domain details (flight, hotel, car, etc...)
         // TODO: once with the list of all domain details, create a SagaStep for each of them
         // TODO: send message to topics on flight-booking, hotel-booking, car-rental
-
+        val sagaStepState: SagaStepState = SagaStepState(
+            null,
+            tripSaga,
+            null,
+            SagaStepType.FLIGHT,
+            StepStatus.PENDING,
+            ""
+        )
+        sagaStepStateRepository.save(sagaStepState)
         if (request.flightInfo != null) {
             bookFlightCommandProducer.dispatch(
                 tripSaga.id.toString(),

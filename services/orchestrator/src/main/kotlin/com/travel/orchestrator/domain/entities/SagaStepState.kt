@@ -39,6 +39,9 @@ class SagaStepState(
     @Column(nullable = false)
     var stepStatus: StepStatus = StepStatus.PENDING,
 
+    @Column(nullable = true)
+    var message: String = "",
+
     @CreationTimestamp
     @Column(updatable = false)
     var createdAt: LocalDateTime? = null,
